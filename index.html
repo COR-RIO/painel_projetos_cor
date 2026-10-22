@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel de Projetos COR</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --azul-escuro: #13335a;
+      --azul-medio: #2a688f;
+      --azul-claro: #42b9eb;
+      --cinza-marca: #eceded;
+      --amarelo: #f5d367;
+
+      --fundo: #0b1f38;
+      --painel: #13335a;
+      --card: #1e4a74;
+      --card-hover: #23557f;
+      --filtro: #2a5577;
+      --tag: #2f6489;
+      --texto: #ffffff;
+      --texto-suave: #c4d3e3;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--fundo);
+      color: var(--texto);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    .painel {
+      max-width: 1100px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: var(--painel);
+      padding: 48px 24px 64px;
+    }
+
+    header { margin-bottom: 32px; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--amarelo);
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 800;
+    }
+
+    .subtitulo {
+      margin: 0;
+      color: var(--texto-suave);
+      max-width: 640px;
+      line-height: 1.5;
+    }
+
+    /* Busca */
+    .busca {
+      position: relative;
+      max-width: 420px;
+      margin: 28px auto 20px;
+    }
+    .busca i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--texto-suave);
+    }
+    .busca input {
+      width: 100%;
+      padding: 11px 14px 11px 40px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: var(--filtro);
+      color: var(--texto);
+      font: inherit;
+      font-size: .95rem;
+    }
+    .busca input::placeholder { color: var(--texto-suave); }
+    .busca input:focus { outline: none; border-color: var(--azul-claro); }
+
+    /* Filtros */
+    .filtros {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px 14px;
+      margin-bottom: 32px;
+    }
+    .filtro {
+      border: none;
+      border-radius: 6px;
+      padding: 10px 16px;
+      background: var(--filtro);
+      color: var(--cinza-marca);
+      font: inherit;
+      font-size: .95rem;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+    .filtro:hover { background: var(--tag); }
+    .filtro.ativo { background: var(--azul-claro); color: #0b1f38; font-weight: 600; }
+    .filtro .contagem { opacity: .7; font-size: .8rem; margin-left: 4px; }
+
+    /* Cards */
+    .grade {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      background: var(--card);
+      border-radius: 8px;
+      overflow: hidden;
+      color: inherit;
+      text-decoration: none;
+      transition: transform .2s, background .2s, box-shadow .2s;
+    }
+    .card:hover, .card:focus-visible {
+      transform: translateY(-4px);
+      background: var(--card-hover);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .35);
+      outline: none;
+    }
+
+    .capa {
+      position: relative;
+      height: 190px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+    }
+    .capa::before {
+      /* grade decorativa no estilo de tela de monitoramento */
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .capa.com-imagem::before { display: none; }
+    .capa .icone-capa {
+      position: relative;
+      font-size: 4.5rem;
+      color: rgba(255, 255, 255, .92);
+      filter: drop-shadow(0 6px 16px rgba(0, 0, 0, .35));
+      transition: transform .3s;
+    }
+    .card:hover .icone-capa { transform: scale(1.08); }
+
+    .olho {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(11, 31, 56, .55);
+      color: #fff;
+      font-size: 1.15rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .selo {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(11, 31, 56, .6);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .03em;
+      backdrop-filter: blur(4px);
+    }
+
+    .corpo {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 18px 16px 20px;
+    }
+    .corpo h3 {
+      margin: 0 0 10px;
+      font-size: 1.12rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+    .corpo p {
+      margin: 0 0 16px;
+      color: var(--texto-suave);
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+    .tags {
+      margin-top: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: var(--tag);
+      color: var(--cinza-marca);
+      font-size: .76rem;
+    }
+
+    .vazio {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: var(--texto-suave);
+      padding: 48px 0;
+    }
+
+    footer {
+      margin-top: 48px;
+      text-align: center;
+      color: var(--texto-suave);
+      font-size: .8rem;
+    }
+
+    @media (max-width: 600px) {
+      .painel { padding: 32px 16px 48px; }
+      .filtros { gap: 8px; }
+      .filtro { padding: 8px 12px; font-size: .88rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="painel">
+    <header>
+      <div class="eyebrow"><i class="bi bi-broadcast"></i> Centro de Operações e Resiliência</div>
+      <h1>Painel de Projetos</h1>
+      <p class="subtitulo">Painéis, dashboards e ferramentas desenvolvidos para o monitoramento e a operação da cidade do Rio de Janeiro.</p>
+    </header>
+
+    <div class="busca">
+      <i class="bi bi-search"></i>
+      <input id="busca" type="search" placeholder="Buscar projeto ou tecnologia..." aria-label="Buscar projeto">
+    </div>
+
+    <nav class="filtros" id="filtros" aria-label="Filtrar por categoria"></nav>
+
+    <section class="grade" id="grade" aria-live="polite"></section>
+
+    <footer>COR · Prefeitura da Cidade do Rio de Janeiro</footer>
+  </main>
+
+  <script src="projetos.js"></script>
+  <script>
+    const filtrosEl = document.getElementById("filtros");
+    const gradeEl = document.getElementById("grade");
+    const buscaEl = document.getElementById("busca");
+
+    let categoriaAtiva = "Todos";
+
+    const escapar = (texto) =>
+      String(texto).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+    const normalizar = (texto) =>
+      texto.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+
+    function renderizarFiltros() {
+      const nomes = ["Todos", ...Object.keys(CATEGORIAS)];
+      filtrosEl.innerHTML = nomes.map((nome) => {
+        const total = nome === "Todos" ? PROJETOS.length : PROJETOS.filter((p) => p.categoria === nome).length;
+        const ativo = nome === categoriaAtiva ? " ativo" : "";
+        return `<button class="filtro${ativo}" data-categoria="${escapar(nome)}">${escapar(nome)}<span class="contagem">${total}</span></button>`;
+      }).join("");
+    }
+
+    function renderizarCards() {
+      const termo = normalizar(buscaEl.value.trim());
+
+      const visiveis = PROJETOS.filter((p) => {
+        const naCategoria = categoriaAtiva === "Todos" || p.categoria === categoriaAtiva;
+        const texto = normalizar([p.titulo, p.descricao, p.categoria, ...p.tags].join(" "));
+        return naCategoria && (!termo || texto.includes(termo));
+      });
+
+      if (!visiveis.length) {
+        gradeEl.innerHTML = `<div class="vazio"><i class="bi bi-inbox" style="font-size:2rem"></i><p>Nenhum projeto encontrado.</p></div>`;
+        return;
+      }
+
+      gradeEl.innerHTML = visiveis.map((p) => {
+        const cores = CATEGORIAS[p.categoria] || { cor1: "#2a688f", cor2: "#13335a" };
+        const fundo = p.imagem
+          ? `background-image: linear-gradient(rgba(11,31,56,.15), rgba(11,31,56,.45)), url('${encodeURI(p.imagem)}')`
+          : `background-image: radial-gradient(circle at 30% 20%, ${cores.cor1}, ${cores.cor2} 75%)`;
+
+        return `
+          <a class="card" href="${escapar(p.link)}" target="_blank" rel="noopener" title="Abrir ${escapar(p.titulo)}">
+            <div class="capa${p.imagem ? " com-imagem" : ""}" style="${fundo}">
+              ${p.imagem ? "" : `<i class="bi ${escapar(p.icone)} icone-capa"></i>`}
+              <span class="olho"><i class="bi bi-eye"></i></span>
+              <span class="selo">${escapar(p.categoria)}</span>
+            </div>
+            <div class="corpo">
+              <h3>${escapar(p.titulo)}</h3>
+              <p>${escapar(p.descricao)}</p>
+              <div class="tags">${p.tags.map((t) => `<span class="tag">${escapar(t)}</span>`).join("")}</div>
+            </div>
+          </a>`;
+      }).join("");
+    }
+
+    filtrosEl.addEventListener("click", (e) => {
+      const botao = e.target.closest(".filtro");
+      if (!botao) return;
+      categoriaAtiva = botao.dataset.categoria;
+      renderizarFiltros();
+      renderizarCards();
+    });
+
+    buscaEl.addEventListener("input", renderizarCards);
+
+    renderizarFiltros();
+    renderizarCards();
+  </script>
+</body>
+</html>
