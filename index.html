@@ -83,7 +83,7 @@
     .topo-padrao {
       position: absolute;
       inset: 0 0 0 auto;
-      width: 58%;
+      width: 42%;
       pointer-events: none;
       -webkit-mask-image: linear-gradient(to right, transparent, #000 30%);
       mask-image: linear-gradient(to right, transparent, #000 30%);
@@ -93,49 +93,41 @@
     .topo .conteiner {
       position: relative;
       z-index: 1;
-      padding-top: calc(var(--m) * 1.5);
-      padding-bottom: calc(var(--m) * 2.5);
+      padding-top: var(--m);
+      padding-bottom: calc(var(--m) * 1.4);
     }
 
-    .topo .marca { height: calc(var(--m) * 2.6); }
+    .topo .marca { height: calc(var(--m) * 2.2); }
 
-    .hero { margin-top: calc(var(--m) * 3.5); max-width: 620px; }
-
-    .rotulo {
-      display: block;
-      font-size: .8rem;
-      font-weight: 500;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: var(--azul-claro);
-      margin-bottom: calc(var(--m) * .6);
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: calc(var(--m) * .6) calc(var(--m) * 2);
+      margin-top: calc(var(--m) * 1.4);
+      max-width: 700px;
     }
+
 
     h1 {
       margin: 0;
-      font-size: clamp(3rem, 9vw, 6.2rem);
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
       font-weight: 900;
       line-height: .92;
       letter-spacing: -.03em;
     }
 
-    .hero p {
-      margin: calc(var(--m) * 1.1) 0 0;
-      max-width: 480px;
-      line-height: 1.6;
-      color: #c9d6e4;
-    }
 
     .numeros {
       display: flex;
-      gap: calc(var(--m) * 1.6);
-      margin-top: calc(var(--m) * 1.8);
+      gap: calc(var(--m) * 1.4);
+      margin: 0 0 .3em;
       padding: 0;
       list-style: none;
     }
     .numeros strong {
       display: block;
-      font-size: 2.4rem;
+      font-size: 1.9rem;
       font-weight: 900;
       line-height: 1;
     }
@@ -153,15 +145,15 @@
       flex-wrap: wrap;
       align-items: flex-end;
       justify-content: space-between;
-      gap: var(--m);
-      padding: calc(var(--m) * 1.6) 0 var(--m);
+      gap: 12px var(--m);
+      padding: var(--m) 0 calc(var(--m) * .7);
       border-bottom: 1px solid var(--fio);
     }
 
     .filtros {
       display: flex;
       flex-wrap: wrap;
-      gap: 6px 4px;
+      gap: 6px 2px;
     }
     .filtro {
       border: none;
@@ -169,9 +161,9 @@
       padding: 6px 8px;
       color: var(--texto);
       font: inherit;
-      font-size: .82rem;
+      font-size: .78rem;
       font-weight: 500;
-      letter-spacing: .08em;
+      letter-spacing: .06em;
       text-transform: uppercase;
       cursor: pointer;
     }
@@ -189,7 +181,8 @@
 
     .busca {
       position: relative;
-      flex: 0 1 280px;
+      flex: 1 0 180px;
+      max-width: 260px;
     }
     .busca i {
       position: absolute;
@@ -217,7 +210,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
       gap: var(--m);
-      padding: calc(var(--m) * 1.4) 0 calc(var(--m) * 3);
+      padding: var(--m) 0 calc(var(--m) * 3);
     }
 
     .card {
@@ -380,11 +373,15 @@
     .rodape .fio { flex: 1; height: 1px; background: var(--azul-escuro); margin-bottom: 6px; }
     .rodape .pagina { font-size: 1.1rem; font-weight: 500; line-height: 1; }
 
+    /* abaixo disso o padrão não cabe ao lado do texto: vira fundo rebaixado */
+    @media (max-width: 1100px) {
+      .topo-padrao { width: 100%; opacity: .22; -webkit-mask-image: none; mask-image: none; }
+    }
+
     @media (max-width: 720px) {
-      .topo-padrao { width: 100%; opacity: .28; }
-      .hero { margin-top: calc(var(--m) * 2.5); }
+      .hero { margin-top: calc(var(--m) * 1.4); }
       .ferramentas { flex-direction: column-reverse; align-items: stretch; }
-      .busca { flex-basis: auto; }
+      .busca { flex-basis: auto; max-width: none; }
       .numeros { gap: var(--m); }
       .numeros strong { font-size: 2rem; }
     }
@@ -400,9 +397,7 @@
       </a>
 
       <div class="hero">
-        <span class="rotulo">Centro de Operações e Resiliência</span>
-        <h1>Projetos<span class="ponto"></span></h1>
-        <p>Painéis, dashboards e ferramentas que ajudam a monitorar e operar a cidade do Rio de Janeiro todos os dias.</p>
+        <h1>Sistemas<span class="ponto"></span></h1>
         <ul class="numeros">
           <li><strong id="total-projetos">0</strong><span>Sistemas</span></li>
           <li><strong id="total-categorias">0</strong><span>Frentes</span></li>
