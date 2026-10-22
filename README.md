@@ -25,6 +25,7 @@ Página estática (HTML, CSS e JavaScript puro), sem build e sem dependências p
 .
 ├── index.html     # layout, estilos e renderização dos cards/filtros
 ├── projetos.js    # catálogo de categorias e projetos (edite aqui)
+├── assets/        # assinatura do COR (SVG) e capas dos projetos (capas/)
 ├── netlify.toml   # configuração de publicação no Netlify
 └── README.md
 ```
@@ -63,7 +64,15 @@ Para criar um novo filtro, adicione a categoria em `CATEGORIAS` com as duas core
 
 ## Identidade visual
 
-Cores da marca Prefeitura do Rio 2025: `#13335a`, `#2a688f`, `#42b9eb`, `#eceded`. As capas usam também as cores dos estágios operacionais do COR (`#147336`, `#f0ac2b`, `#f06949`, `#b3232a`).
+A interface segue o Manual de Marca da Prefeitura do Rio 2025:
+
+- **Assinatura oficial do COR** (marca da Prefeitura + "Centro de Operações e Resiliência"), a mesma usada em cor.rio, em [assets/marca-cor.svg](assets/marca-cor.svg) e embutida no `index.html` como `<symbol>` (usa `currentColor`: branca no topo azul, azul no rodapé). Não redesenhe nem separe os elementos.
+- **Cores digitais** `#13335a`, `#2a688f`, `#42b9eb` e `#eceded`; as categorias usam as cores dos estágios operacionais do COR (`#147336`, `#f0ac2b`, `#f06949`, `#b3232a`) como acento.
+- **Tipografia** Cera Pro (Black nos títulos, Medium nos rótulos, Regular nos textos). Sem a Cera Pro instalada, entra a Outfit (Google Fonts), geométrica e próxima dela.
+- **Padrão de triângulos** (páginas "Padrões") no topo, gerado em SVG e dissolvido antes do texto.
+- **Capas dos cards** no degradê digital do manual (`#13335a` → `#2a688f` → `#42b9eb`) com um ícone ligado ao nome do projeto (campo `icone`). Com `imagem` definida, a capa usa a captura de tela do sistema (em `assets/capas/`, 800×400) com um filtro azul leve que sai no hover.
+- **Triângulo no canto superior direito**, **triângulo como ponto-final** (metade da altura da fonte) e **rodapé com marca, fio e numeração**, como nas páginas do manual. O número do rodapé mostra quantos projetos estão visíveis.
+- **Tags como hashtags** (`#TempoReal`), a exceção de caixa prevista no manual.
 
 ## Deploy (Netlify)
 

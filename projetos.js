@@ -4,7 +4,7 @@
 //   categoria                -> deve existir em CATEGORIAS (vira um filtro)
 //   icone                    -> classe do Bootstrap Icons (https://icons.getbootstrap.com)
 //   tags                     -> etiquetas exibidas no rodapé do card
-//   imagem (opcional)        -> URL de uma imagem de capa; sem ela, usa o gradiente da categoria
+//   imagem (opcional)        -> captura de tela ou foto de capa (assets/capas/); sem ela, a capa mostra o ícone
 
 const CATEGORIAS = {
   "Mobilidade e Trânsito": { cor1: "#f0ac2b", cor2: "#2a688f" },
@@ -20,7 +20,8 @@ const PROJETOS = [
     descricao: "Plataforma de monitoramento de rotas e de irregularidades no trânsito com dados do Waze Partner.",
     link: "https://waze.computei.srv.br/dashboard",
     categoria: "Mobilidade e Trânsito",
-    icone: "bi-sign-turn-right",
+    icone: "bi-signpost-split",
+    imagem: "assets/capas/unusual-waze.jpg",
     tags: ["Waze Partner", "Rotas", "Tempo real"],
   },
   {
@@ -29,6 +30,7 @@ const PROJETOS = [
     link: "https://tempovias.dados.rio.br/login",
     categoria: "Mobilidade e Trânsito",
     icone: "bi-stopwatch",
+    imagem: "assets/capas/tempovias.jpg",
     tags: ["Rotas", "Tempo de viagem", "Login"],
   },
   {
@@ -36,7 +38,8 @@ const PROJETOS = [
     descricao: "Mapa de congestionamento, comparação por hora entre dias, severidade, ranking de ruas mais afetadas e tipos de alerta.",
     link: "https://historicowaze.dados.rio.br/dashboard.html",
     categoria: "Mobilidade e Trânsito",
-    icone: "bi-car-front-fill",
+    icone: "bi-clock-history",
+    imagem: "assets/capas/historico-waze.jpg",
     tags: ["Waze", "Congestionamento", "Histórico"],
   },
   {
@@ -45,6 +48,7 @@ const PROJETOS = [
     link: "https://trafego-iacor.onrender.com/",
     categoria: "Mobilidade e Trânsito",
     icone: "bi-stoplights",
+    imagem: "assets/capas/trafego.jpg",
     tags: ["IA", "Tráfego", "Mobilidade"],
   },
   {
@@ -53,6 +57,7 @@ const PROJETOS = [
     link: "https://chovendoagora.cor.rio/",
     categoria: "Clima e Chuva",
     icone: "bi-cloud-rain-heavy",
+    imagem: "assets/capas/chovendo-agora.jpg",
     tags: ["Pluviometria", "Mapa", "Tempo real"],
   },
   {
@@ -61,6 +66,7 @@ const PROJETOS = [
     link: "http://alagamento.cor.rio/login.html",
     categoria: "Clima e Chuva",
     icone: "bi-camera-video",
+    imagem: "assets/capas/alagamentos.jpg",
     tags: ["Visão Computacional", "Câmeras", "Alagamentos"],
   },
   {
@@ -68,7 +74,8 @@ const PROJETOS = [
     descricao: "Sistema Integrado Municipal de Alarmes e Alertas: acompanha indicadores, dispara alarmes e coordena respostas em um único painel operacional.",
     link: "https://simaav2.simaa.rio.br/login?next=%2F",
     categoria: "Alertas e Resiliência",
-    icone: "bi-bell",
+    icone: "bi-alarm",
+    imagem: "assets/capas/simaa.jpg",
     tags: ["Alarmes", "Alertas", "Tempo real"],
   },
   {
@@ -76,7 +83,7 @@ const PROJETOS = [
     descricao: "Simulação 3D da cidade do Rio de Janeiro para apoio à resiliência e ao planejamento operacional.",
     link: "https://resilience-rio.netlify.app/",
     categoria: "Alertas e Resiliência",
-    icone: "bi-buildings",
+    icone: "bi-badge-3d",
     tags: ["3D", "Simulação", "Resiliência"],
   },
   {
@@ -84,7 +91,8 @@ const PROJETOS = [
     descricao: "Inteligência geográfica com dados de mobilidade da TIM: concentração, deslocamento e pontos de pressão no território.",
     link: "https://smartsignal.timbrasil.com.br/smartsignal/cor-rj/login.html",
     categoria: "Inteligência Territorial",
-    icone: "bi-broadcast-pin",
+    icone: "bi-reception-4",
+    imagem: "assets/capas/smartsignal.jpg",
     tags: ["TIM", "Geodados", "Mobilidade"],
   },
   {
@@ -93,6 +101,7 @@ const PROJETOS = [
     link: "https://monitoramentoeleicoes2026.cor.rio/",
     categoria: "Grandes Eventos",
     icone: "bi-check2-square",
+    imagem: "assets/capas/eleicoes.jpg",
     tags: ["Eleições 2026", "Mapa de calor", "Operação"],
   },
 ];
