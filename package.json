@@ -1,0 +1,8 @@
+{
+  "name": "painel-projetos-cor",
+  "private": true,
+  "description": "Painel de sistemas do Centro de Operações e Resiliência (COR) da Prefeitura do Rio",
+  "scripts": {
+    "dev": "npx --yes serve@14.2.4 -l 3000 ."
+  }
+}
