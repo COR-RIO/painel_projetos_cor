@@ -482,11 +482,10 @@
 
   <section class="visor" id="visor" hidden aria-label="Sistema aberto">
     <div class="visor-barra">
-      <button class="voltar" id="voltar" type="button">Voltar</button>
+      <a class="voltar" id="voltar" href="https://painel-cor.netlify.app/">Voltar</a>
       <div class="visor-titulo"><strong id="visor-titulo"></strong><span id="visor-categoria"></span></div>
       <a class="nova-aba" id="nova-aba" href="#" target="_blank" rel="noopener"><span>Abrir em nova aba</span><i class="bi bi-box-arrow-up-right"></i></a>
     </div>
-    <iframe id="visor-quadro" title="Sistema"></iframe>
   </section>
 
   <footer class="rodape">
@@ -631,15 +630,22 @@
 
     // ---------- Visor ----------
     const visorEl = document.getElementById("visor");
-    const quadroEl = document.getElementById("visor-quadro");
-    let abertoPeloPainel = false;
+    let quadroEl = null;
+    let sistemaAberto = null;
 
     function abrirVisor(p) {
       document.getElementById("visor-titulo").textContent = p.titulo;
       document.getElementById("visor-categoria").textContent = p.categoria;
       document.getElementById("nova-aba").href = p.link;
-      quadroEl.title = p.titulo;
-      if (quadroEl.getAttribute("src") !== p.link) quadroEl.src = p.link;
+      // um iframe novo, com o src definido antes de entrar na página, não cria entradas no histórico
+      if (sistemaAberto !== p) {
+        quadroEl?.remove();
+        quadroEl = document.createElement("iframe");
+        quadroEl.title = p.titulo;
+        quadroEl.src = p.link;
+        visorEl.append(quadroEl);
+        sistemaAberto = p;
+      }
       visorEl.hidden = false;
       document.body.classList.add("visor-aberto");
       document.title = `${p.titulo} · Sistemas COR`;
@@ -648,7 +654,9 @@
 
     function fecharVisor() {
       visorEl.hidden = true;
-      quadroEl.removeAttribute("src");
+      quadroEl?.remove();
+      quadroEl = null;
+      sistemaAberto = null;
       document.body.classList.remove("visor-aberto");
       document.title = tituloOriginal;
     }
@@ -660,19 +668,9 @@
       p ? abrirVisor(p) : fecharVisor();
     }
 
-    gradeEl.addEventListener("click", (e) => {
-      if (e.target.closest('.card[href^="#sistema="]')) abertoPeloPainel = true;
-    });
-
-    document.getElementById("voltar").addEventListener("click", () => {
-      if (abertoPeloPainel) {
-        abertoPeloPainel = false;
-        history.back();
-      } else {
-        history.replaceState(null, "", location.pathname + location.search);
-        fecharVisor();
-      }
-    });
+    // "Voltar" é um link para a página inicial, que recarrega o painel. Não usa history.back():
+    // as navegações internas do sistema também entram no histórico da aba, e voltar recuaria
+    // dentro do iframe, deixando a tela em branco
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && !visorEl.hidden) document.getElementById("voltar").click();
@@ -680,6 +678,8 @@
 
     const tituloOriginal = document.title;
     window.addEventListener("hashchange", sincronizarVisor);
+    // ao voltar de um sistema aberto na mesma aba, a página pode ser restaurada do cache do navegador
+    window.addEventListener("pageshow", (e) => { if (e.persisted) sincronizarVisor(); });
 
     renderizarTopo();
     renderizarFiltros();
