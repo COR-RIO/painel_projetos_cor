@@ -2,6 +2,8 @@
 
 Vitrine dos sistemas desenvolvidos para o **Centro de Operações e Resiliência (COR)** da Prefeitura do Rio de Janeiro. Cada projeto aparece como um card com capa, descrição e tags, e pode ser filtrado por categoria ou encontrado pela busca.
 
+Ao clicar em um card, o sistema abre dentro do próprio painel, com uma barra para voltar à lista e outra opção para abrir em nova aba. O endereço muda para `#sistema=<nome>`, então o voltar do navegador e o compartilhamento do link funcionam. Sistemas que bloqueiam iframe ou usam `http` (marcados com `incorporar: false`) abrem na mesma aba.
+
 Página estática (HTML, CSS e JavaScript puro), sem build e sem dependências para instalar.
 
 ## Sistemas
@@ -16,6 +18,7 @@ Página estática (HTML, CSS e JavaScript puro), sem build e sem dependências p
 | Vision AI – Alagamentos | Clima e Chuva | http://alagamento.cor.rio/login.html |
 | SIMAA | Alertas e Resiliência | https://simaav2.simaa.rio.br/login?next=%2F |
 | COR Sim Rio 3D | Alertas e Resiliência | https://resilience-rio.netlify.app/ |
+| Painel Operacional COR.Rio | Alertas e Resiliência | https://appcor.cor-rio.work/login/?next=/eventos/ |
 | TIM SmartSignal | Inteligência Territorial | https://smartsignal.timbrasil.com.br/smartsignal/cor-rj/login.html |
 | Monitoramento Eleições 2026 | Grandes Eventos | https://monitoramentoeleicoes2026.cor.rio/ |
 
@@ -52,7 +55,8 @@ Inclua um objeto na lista `PROJETOS` em [projetos.js](projetos.js):
   categoria: "Mobilidade e Trânsito",   // precisa existir em CATEGORIAS
   icone: "bi-geo-alt",                  // Bootstrap Icons: https://icons.getbootstrap.com
   tags: ["Tag 1", "Tag 2"],
-  imagem: "https://...",                // opcional: foto de capa no lugar do gradiente
+  imagem: "assets/capas/nome.jpg",      // opcional: captura de tela no lugar do ícone
+  incorporar: false,                    // opcional: o sistema bloqueia iframe ou é http; abre na mesma aba
 },
 ```
 

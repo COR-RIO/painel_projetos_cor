@@ -373,6 +373,66 @@
     .rodape .fio { flex: 1; height: 1px; background: var(--azul-escuro); margin-bottom: 6px; }
     .rodape .pagina { font-size: 1.1rem; font-weight: 500; line-height: 1; }
 
+    /* ---------- Visor: sistema aberto dentro do painel ---------- */
+    .visor {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      background: var(--branco);
+    }
+    .visor[hidden] { display: none; }
+    body.visor-aberto { overflow: hidden; }
+
+    .visor-barra {
+      display: flex;
+      align-items: center;
+      gap: var(--m);
+      min-height: 56px;
+      padding: 8px var(--m);
+      background: var(--azul-escuro);
+      color: var(--branco);
+    }
+    .visor-barra button, .visor-barra a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: none;
+      background: none;
+      padding: 6px 0;
+      color: inherit;
+      font: inherit;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .visor-barra button:hover, .visor-barra a:hover { color: var(--azul-claro); }
+    .visor-barra button:focus-visible, .visor-barra a:focus-visible { outline: 2px solid var(--azul-claro); outline-offset: 4px; }
+    .voltar::before {
+      content: "";
+      width: 10px;
+      height: 14px;
+      background: var(--azul-claro);
+      clip-path: polygon(100% 0, 0 50%, 100% 100%);
+    }
+    .visor-titulo {
+      flex: 1;
+      min-width: 0;
+      padding-left: var(--m);
+      border-left: 1px solid rgba(255, 255, 255, .25);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .visor-titulo strong { font-weight: 900; text-transform: uppercase; }
+    .visor-titulo span { margin-left: 10px; font-size: .78rem; color: #c9d6e4; }
+    .visor iframe { flex: 1; width: 100%; border: 0; background: var(--branco); }
+
     /* abaixo disso o padrão não cabe ao lado do texto: vira fundo rebaixado */
     @media (max-width: 1100px) {
       .topo-padrao { width: 100%; opacity: .22; -webkit-mask-image: none; mask-image: none; }
@@ -384,6 +444,7 @@
       .busca { flex-basis: auto; max-width: none; }
       .numeros { gap: var(--m); }
       .numeros strong { font-size: 2rem; }
+      .visor-titulo span, .nova-aba span { display: none; }
     }
   </style>
 </head>
@@ -419,6 +480,15 @@
     <section class="grade" id="grade" aria-live="polite"></section>
   </main>
 
+  <section class="visor" id="visor" hidden aria-label="Sistema aberto">
+    <div class="visor-barra">
+      <button class="voltar" id="voltar" type="button">Voltar</button>
+      <div class="visor-titulo"><strong id="visor-titulo"></strong><span id="visor-categoria"></span></div>
+      <a class="nova-aba" id="nova-aba" href="#" target="_blank" rel="noopener"><span>Abrir em nova aba</span><i class="bi bi-box-arrow-up-right"></i></a>
+    </div>
+    <iframe id="visor-quadro" title="Sistema"></iframe>
+  </section>
+
   <footer class="rodape">
     <div class="conteiner">
       <span class="marca" aria-label="COR - Centro de Operações e Resiliência">
@@ -448,6 +518,9 @@
       texto.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
     const doisDigitos = (n) => String(n).padStart(2, "0");
+
+    // "Vision AI – Alagamentos" -> "vision-ai-alagamentos"
+    const slug = (p) => normalizar(p.titulo).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
     // "Tempo real" -> "#TempoReal", seguindo a exceção de hashtags do manual
     const hashtag = (tag) =>
@@ -528,8 +601,11 @@
           ? `<div class="capa foto" style="background-image: url('${encodeURI(p.imagem)}')"></div>`
           : `<div class="capa"><i class="bi ${escapar(p.icone)} icone" aria-hidden="true"></i></div>`;
 
+        // sistemas que aceitam iframe abrem no visor; os outros, na mesma aba
+        const destino = p.incorporar === false ? escapar(p.link) : `#sistema=${slug(p)}`;
+
         return `
-          <a class="card" href="${escapar(p.link)}" target="_blank" rel="noopener" style="--cor-categoria: ${escapar(cores.cor1)}">
+          <a class="card" href="${destino}" style="--cor-categoria: ${escapar(cores.cor1)}">
             ${capa}
             <span class="canto" aria-hidden="true"></span>
             <div class="corpo">
@@ -553,9 +629,62 @@
 
     buscaEl.addEventListener("input", renderizarCards);
 
+    // ---------- Visor ----------
+    const visorEl = document.getElementById("visor");
+    const quadroEl = document.getElementById("visor-quadro");
+    let abertoPeloPainel = false;
+
+    function abrirVisor(p) {
+      document.getElementById("visor-titulo").textContent = p.titulo;
+      document.getElementById("visor-categoria").textContent = p.categoria;
+      document.getElementById("nova-aba").href = p.link;
+      quadroEl.title = p.titulo;
+      if (quadroEl.getAttribute("src") !== p.link) quadroEl.src = p.link;
+      visorEl.hidden = false;
+      document.body.classList.add("visor-aberto");
+      document.title = `${p.titulo} · Sistemas COR`;
+      document.getElementById("voltar").focus();
+    }
+
+    function fecharVisor() {
+      visorEl.hidden = true;
+      quadroEl.removeAttribute("src");
+      document.body.classList.remove("visor-aberto");
+      document.title = tituloOriginal;
+    }
+
+    // o endereço #sistema=<slug> permite usar o voltar do navegador e compartilhar o link
+    function sincronizarVisor() {
+      const atual = new URLSearchParams(location.hash.slice(1)).get("sistema");
+      const p = atual && PROJETOS.find((x) => slug(x) === atual && x.incorporar !== false);
+      p ? abrirVisor(p) : fecharVisor();
+    }
+
+    gradeEl.addEventListener("click", (e) => {
+      if (e.target.closest('.card[href^="#sistema="]')) abertoPeloPainel = true;
+    });
+
+    document.getElementById("voltar").addEventListener("click", () => {
+      if (abertoPeloPainel) {
+        abertoPeloPainel = false;
+        history.back();
+      } else {
+        history.replaceState(null, "", location.pathname + location.search);
+        fecharVisor();
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !visorEl.hidden) document.getElementById("voltar").click();
+    });
+
+    const tituloOriginal = document.title;
+    window.addEventListener("hashchange", sincronizarVisor);
+
     renderizarTopo();
     renderizarFiltros();
     renderizarCards();
+    sincronizarVisor();
   </script>
 </body>
 </html>

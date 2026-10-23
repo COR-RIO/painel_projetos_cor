@@ -5,6 +5,8 @@
 //   icone                    -> classe do Bootstrap Icons (https://icons.getbootstrap.com)
 //   tags                     -> etiquetas exibidas no rodapé do card
 //   imagem (opcional)        -> captura de tela ou foto de capa (assets/capas/); sem ela, a capa mostra o ícone
+//   incorporar (opcional)    -> false quando o sistema não pode abrir dentro do painel (bloqueia iframe ou é http);
+//                               nesse caso ele abre na mesma aba, saindo do painel
 
 const CATEGORIAS = {
   "Mobilidade e Trânsito": { cor1: "#f0ac2b", cor2: "#2a688f" },
@@ -67,6 +69,7 @@ const PROJETOS = [
     categoria: "Clima e Chuva",
     icone: "bi-camera-video",
     imagem: "assets/capas/alagamentos.jpg",
+    incorporar: false,
     tags: ["Visão Computacional", "Câmeras", "Alagamentos"],
   },
   {
@@ -84,7 +87,17 @@ const PROJETOS = [
     link: "https://resilience-rio.netlify.app/",
     categoria: "Alertas e Resiliência",
     icone: "bi-badge-3d",
+    incorporar: false,
     tags: ["3D", "Simulação", "Resiliência"],
+  },
+  {
+    titulo: "Painel Operacional COR.Rio",
+    descricao: "Atualização do estágio operacional da cidade, nível de calor, alertas e interdições.",
+    link: "https://appcor.cor-rio.work/login/?next=/eventos/",
+    categoria: "Alertas e Resiliência",
+    icone: "bi-sliders",
+    incorporar: false,
+    tags: ["Estágio operacional", "Calor", "Interdições"],
   },
   {
     titulo: "TIM SmartSignal",
