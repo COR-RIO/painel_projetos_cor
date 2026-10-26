@@ -54,6 +54,14 @@ const PROJETOS = [
     tags: ["IA", "Tráfego", "Mobilidade"],
   },
   {
+    titulo: "Monitoramento de Túneis",
+    descricao: "Acompanhamento das condições e da operação dos túneis da cidade.",
+    link: "https://monitoramento-tuneis.onrender.com/",
+    categoria: "Mobilidade e Trânsito",
+    icone: "bi-cone-striped",
+    tags: ["Túneis", "Trânsito", "Monitoramento"],
+  },
+  {
     titulo: "Chovendo Agora",
     descricao: "Onde está chovendo agora? Monitoramento de chuvas em tempo real nas estações pluviométricas da cidade.",
     link: "https://chovendoagora.cor.rio/",
