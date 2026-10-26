@@ -59,6 +59,7 @@ const PROJETOS = [
     link: "https://monitoramento-tuneis.onrender.com/",
     categoria: "Mobilidade e Trânsito",
     icone: "bi-cone-striped",
+    imagem: "assets/capas/monitoramento-tuneis.png",
     tags: ["Túneis", "Trânsito", "Monitoramento"],
   },
   {
@@ -95,6 +96,7 @@ const PROJETOS = [
     link: "https://resilience-rio.netlify.app/",
     categoria: "Alertas e Resiliência",
     icone: "bi-badge-3d",
+    imagem: "assets/capas/cor-sim-rio-3d.png",
     incorporar: false,
     tags: ["3D", "Simulação", "Resiliência"],
   },
@@ -104,6 +106,7 @@ const PROJETOS = [
     link: "https://appcor.cor-rio.work/login/?next=/eventos/",
     categoria: "Alertas e Resiliência",
     icone: "bi-sliders",
+    imagem: "assets/capas/painel-operacional-cor.png",
     incorporar: false,
     tags: ["Estágio operacional", "Calor", "Interdições"],
   },
