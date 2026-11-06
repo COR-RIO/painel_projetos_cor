@@ -509,7 +509,7 @@
       <a class="voltar" id="voltar" href="https://painel-cor.netlify.app/">Voltar</a>
       <div class="visor-titulo"><strong id="visor-titulo"></strong><span id="visor-categoria"></span></div>
       <nav class="sistemas-atalhos" id="sistemas-atalhos" aria-label="Atalhos para os sistemas"></nav>
-      <a class="nova-aba" id="nova-aba" href="#" target="_blank" rel="noopener"><span>Abrir em nova aba</span><i class="bi bi-box-arrow-up-right"></i></a>
+      <a class="nova-aba" id="nova-aba" href="#" target="_blank" rel="noopener" aria-label="Abrir sistema em nova aba" title="Se o sistema não carregar no visor, abra em nova aba"><span>Abrir em nova aba</span><i class="bi bi-box-arrow-up-right" aria-hidden="true"></i></a>
     </div>
   </section>
 
@@ -625,8 +625,8 @@
           ? `<div class="capa foto" style="background-image: url('${encodeURI(p.imagem)}')"></div>`
           : `<div class="capa"><i class="bi ${escapar(p.icone)} icone" aria-hidden="true"></i></div>`;
 
-        // sistemas que aceitam iframe abrem no visor; os outros, na mesma aba
-        const destino = p.incorporar === false ? escapar(p.link) : `#sistema=${slug(p)}`;
+        // Todos os sistemas tentam abrir no visor; a barra oferece o link externo como alternativa.
+        const destino = `#sistema=${slug(p)}`;
 
         return `
           <a class="card" href="${destino}" style="--cor-categoria: ${escapar(cores.cor1)}">
@@ -660,7 +660,7 @@
 
     function renderizarAtalhos(pAtual) {
       document.getElementById("sistemas-atalhos").innerHTML = PROJETOS.map((p) => {
-        const destino = p.incorporar === false ? escapar(p.link) : `#sistema=${slug(p)}`;
+        const destino = `#sistema=${slug(p)}`;
         const atual = p === pAtual ? ' aria-current="page"' : "";
         return `<a class="sistema-atalho" href="${destino}" title="${escapar(p.titulo)}" aria-label="${escapar(p.titulo)}"${atual}><i class="bi ${escapar(p.icone)}" aria-hidden="true"></i></a>`;
       }).join("");
@@ -698,7 +698,7 @@
     // o endereço #sistema=<slug> permite usar o voltar do navegador e compartilhar o link
     function sincronizarVisor() {
       const atual = new URLSearchParams(location.hash.slice(1)).get("sistema");
-      const p = atual && PROJETOS.find((x) => slug(x) === atual && x.incorporar !== false);
+      const p = atual && PROJETOS.find((x) => slug(x) === atual);
       p ? abrirVisor(p) : fecharVisor();
     }
 

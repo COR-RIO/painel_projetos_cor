@@ -2,7 +2,7 @@
 
 Vitrine dos sistemas desenvolvidos para o **Centro de Operações e Resiliência (COR)** da Prefeitura do Rio de Janeiro. Cada projeto aparece como um card com capa, descrição e tags, e pode ser filtrado por categoria ou encontrado pela busca.
 
-Ao clicar em um card, o sistema abre dentro do próprio painel, com uma barra para voltar à lista e outra opção para abrir em nova aba. O endereço muda para `#sistema=<nome>`, então o voltar do navegador e o compartilhamento do link funcionam. Sistemas que bloqueiam iframe ou usam `http` (marcados com `incorporar: false`) abrem na mesma aba.
+Ao clicar em um card, o sistema é tentado dentro do próprio painel, com uma barra para voltar à lista e outra opção para abrir em nova aba. O endereço muda para `#sistema=<nome>`, então o voltar do navegador e o compartilhamento do link funcionam. Se um sistema bloquear iframe ou usar `http` (marcado com `incorporar: false`), use "Abrir em nova aba" na barra.
 No visor, os ícones da barra superior permitem alternar diretamente entre os sistemas; em telas estreitas, a faixa de ícones pode ser rolada horizontalmente.
 
 Página estática (HTML, CSS e JavaScript puro), sem build e sem dependências para instalar.
@@ -58,7 +58,7 @@ Inclua um objeto na lista `PROJETOS` em [projetos.js](projetos.js):
   icone: "bi-geo-alt",                  // Bootstrap Icons: https://icons.getbootstrap.com
   tags: ["Tag 1", "Tag 2"],
   imagem: "assets/capas/nome.jpg",      // opcional: captura de tela no lugar do ícone
-  incorporar: false,                    // opcional: o sistema bloqueia iframe ou é http; abre na mesma aba
+  incorporar: false,                    // opcional: o sistema pode bloquear iframe; nesse caso, use "Abrir em nova aba"
 },
 ```
 
