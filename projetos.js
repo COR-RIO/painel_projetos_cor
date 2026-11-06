@@ -54,7 +54,7 @@ const PROJETOS = [
     tags: ["IA", "Tráfego", "Mobilidade"],
   },
   {
-    titulo: "Painel Operacional COR.Rio",
+    titulo: "Painel de Eventos",
     descricao: "Atualização do estágio operacional da cidade, nível de calor, alertas e interdições.",
     link: "https://appcor.cor-rio.work/login/?next=/eventos/",
     categoria: "Alertas e Resiliência",
