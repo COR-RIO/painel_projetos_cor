@@ -11,10 +11,11 @@ Página estática (HTML, CSS e JavaScript puro), sem build e sem dependências p
 | Sistema | Categoria | Link |
 |---|---|---|
 | Unusual Waze e Routes | Mobilidade e Trânsito | https://waze.computei.srv.br/dashboard |
+| Chovendo Agora | Clima e Chuva | https://chovendoagora.cor.rio/ |
+| Monitoramento de Túneis | Mobilidade e Trânsito | https://monitoramento-tuneis.onrender.com/ |
+| Tráfego e Mobilidade Urbana | Mobilidade e Trânsito | https://trafego-iacor.onrender.com/ |
 | Tempovias | Mobilidade e Trânsito | https://tempovias.dados.rio.br/login |
 | Histórico Waze | Mobilidade e Trânsito | https://historicowaze.dados.rio.br/dashboard.html |
-| Tráfego e Mobilidade Urbana | Mobilidade e Trânsito | https://trafego-iacor.onrender.com/ |
-| Chovendo Agora | Clima e Chuva | https://chovendoagora.cor.rio/ |
 | Vision AI – Alagamentos | Clima e Chuva | http://alagamento.cor.rio/login.html |
 | SIMAA | Alertas e Resiliência | https://simaav2.simaa.rio.br/login?next=%2F |
 | COR Sim Rio 3D | Alertas e Resiliência | https://resilience-rio.netlify.app/ |
