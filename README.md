@@ -3,6 +3,7 @@
 Vitrine dos sistemas desenvolvidos para o **Centro de Operações e Resiliência (COR)** da Prefeitura do Rio de Janeiro. Cada projeto aparece como um card com capa, descrição e tags, e pode ser filtrado por categoria ou encontrado pela busca.
 
 Ao clicar em um card, o sistema abre dentro do próprio painel, com uma barra para voltar à lista e outra opção para abrir em nova aba. O endereço muda para `#sistema=<nome>`, então o voltar do navegador e o compartilhamento do link funcionam. Sistemas que bloqueiam iframe ou usam `http` (marcados com `incorporar: false`) abrem na mesma aba.
+No visor, os ícones da barra superior permitem alternar diretamente entre os sistemas; em telas estreitas, a faixa de ícones pode ser rolada horizontalmente.
 
 Página estática (HTML, CSS e JavaScript puro), sem build e sem dependências para instalar.
 

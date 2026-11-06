@@ -431,6 +431,29 @@
     }
     .visor-titulo strong { font-weight: 900; text-transform: uppercase; }
     .visor-titulo span { margin-left: 10px; font-size: .78rem; color: #c9d6e4; }
+    .sistemas-atalhos {
+      display: flex;
+      flex: 0 1 auto;
+      align-items: center;
+      gap: 4px;
+      max-width: min(42vw, 600px);
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+    .sistema-atalho {
+      flex: 0 0 36px;
+      width: 36px;
+      height: 36px;
+      justify-content: center;
+      padding: 0 !important;
+      border-radius: 3px;
+      font-size: 1.15rem !important;
+      letter-spacing: 0 !important;
+    }
+    .sistema-atalho[aria-current="page"] {
+      color: var(--azul-claro);
+      background: rgba(255, 255, 255, .12);
+    }
     .visor iframe { flex: 1; width: 100%; border: 0; background: var(--branco); }
 
     /* abaixo disso o padrão não cabe ao lado do texto: vira fundo rebaixado */
@@ -445,6 +468,7 @@
       .numeros { gap: var(--m); }
       .numeros strong { font-size: 2rem; }
       .visor-titulo span, .nova-aba span { display: none; }
+      .sistemas-atalhos { max-width: 38vw; }
     }
   </style>
 </head>
@@ -484,6 +508,7 @@
     <div class="visor-barra">
       <a class="voltar" id="voltar" href="https://painel-cor.netlify.app/">Voltar</a>
       <div class="visor-titulo"><strong id="visor-titulo"></strong><span id="visor-categoria"></span></div>
+      <nav class="sistemas-atalhos" id="sistemas-atalhos" aria-label="Atalhos para os sistemas"></nav>
       <a class="nova-aba" id="nova-aba" href="#" target="_blank" rel="noopener"><span>Abrir em nova aba</span><i class="bi bi-box-arrow-up-right"></i></a>
     </div>
   </section>
@@ -633,10 +658,19 @@
     let quadroEl = null;
     let sistemaAberto = null;
 
+    function renderizarAtalhos(pAtual) {
+      document.getElementById("sistemas-atalhos").innerHTML = PROJETOS.map((p) => {
+        const destino = p.incorporar === false ? escapar(p.link) : `#sistema=${slug(p)}`;
+        const atual = p === pAtual ? ' aria-current="page"' : "";
+        return `<a class="sistema-atalho" href="${destino}" title="${escapar(p.titulo)}" aria-label="${escapar(p.titulo)}"${atual}><i class="bi ${escapar(p.icone)}" aria-hidden="true"></i></a>`;
+      }).join("");
+    }
+
     function abrirVisor(p) {
       document.getElementById("visor-titulo").textContent = p.titulo;
       document.getElementById("visor-categoria").textContent = p.categoria;
       document.getElementById("nova-aba").href = p.link;
+      renderizarAtalhos(p);
       // um iframe novo, com o src definido antes de entrar na página, não cria entradas no histórico
       if (sistemaAberto !== p) {
         quadroEl?.remove();
