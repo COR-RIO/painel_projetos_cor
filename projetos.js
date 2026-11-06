@@ -37,10 +37,11 @@ const PROJETOS = [
   },
   {
     titulo: "Monitoramento de Túneis",
-    descricao: "Acompanhamento da situação dos túneis da cidade.",
+    descricao: "Acompanhamento das condições e da operação dos túneis da cidade.",
     link: "https://monitoramento-tuneis.onrender.com/",
     categoria: "Mobilidade e Trânsito",
     icone: "bi-cone-striped",
+    imagem: "assets/capas/monitoramento-tuneis.png",
     tags: ["Túneis", "Trânsito", "Monitoramento"],
   },
   {
@@ -51,6 +52,16 @@ const PROJETOS = [
     icone: "bi-stoplights",
     imagem: "assets/capas/trafego.jpg",
     tags: ["IA", "Tráfego", "Mobilidade"],
+  },
+  {
+    titulo: "Painel Operacional COR.Rio",
+    descricao: "Atualização do estágio operacional da cidade, nível de calor, alertas e interdições.",
+    link: "https://appcor.cor-rio.work/login/?next=/eventos/",
+    categoria: "Alertas e Resiliência",
+    icone: "bi-sliders",
+    imagem: "assets/capas/painel-operacional-cor.png",
+    incorporar: false,
+    tags: ["Estágio operacional", "Calor", "Interdições"],
   },
   {
     titulo: "Tempovias",
@@ -95,17 +106,9 @@ const PROJETOS = [
     link: "https://resilience-rio.netlify.app/",
     categoria: "Alertas e Resiliência",
     icone: "bi-badge-3d",
+    imagem: "assets/capas/cor-sim-rio-3d.png",
     incorporar: false,
     tags: ["3D", "Simulação", "Resiliência"],
-  },
-  {
-    titulo: "Painel Operacional COR.Rio",
-    descricao: "Atualização do estágio operacional da cidade, nível de calor, alertas e interdições.",
-    link: "https://appcor.cor-rio.work/login/?next=/eventos/",
-    categoria: "Alertas e Resiliência",
-    icone: "bi-sliders",
-    incorporar: false,
-    tags: ["Estágio operacional", "Calor", "Interdições"],
   },
   {
     titulo: "TIM SmartSignal",

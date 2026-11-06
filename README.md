@@ -14,12 +14,12 @@ Página estática (HTML, CSS e JavaScript puro), sem build e sem dependências p
 | Chovendo Agora | Clima e Chuva | https://chovendoagora.cor.rio/ |
 | Monitoramento de Túneis | Mobilidade e Trânsito | https://monitoramento-tuneis.onrender.com/ |
 | Tráfego e Mobilidade Urbana | Mobilidade e Trânsito | https://trafego-iacor.onrender.com/ |
+| Painel Operacional COR.Rio | Alertas e Resiliência | https://appcor.cor-rio.work/login/?next=/eventos/ |
 | Tempovias | Mobilidade e Trânsito | https://tempovias.dados.rio.br/login |
 | Histórico Waze | Mobilidade e Trânsito | https://historicowaze.dados.rio.br/dashboard.html |
 | Vision AI – Alagamentos | Clima e Chuva | http://alagamento.cor.rio/login.html |
 | SIMAA | Alertas e Resiliência | https://simaav2.simaa.rio.br/login?next=%2F |
 | COR Sim Rio 3D | Alertas e Resiliência | https://resilience-rio.netlify.app/ |
-| Painel Operacional COR.Rio | Alertas e Resiliência | https://appcor.cor-rio.work/login/?next=/eventos/ |
 | TIM SmartSignal | Inteligência Territorial | https://smartsignal.timbrasil.com.br/smartsignal/cor-rj/login.html |
 | Monitoramento Eleições 2026 | Grandes Eventos | https://monitoramentoeleicoes2026.cor.rio/ |
 
